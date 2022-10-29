@@ -14,6 +14,8 @@ namespace Request
             HttpRequest request = new HttpRequest();
 
             request.SetCookie("cookie", "/", ".facebook");
+            request.SetProxy("ip", "port");
+            request.SetProxy("ip", "port", "username", "password");
 
             List<KeyValuePair<string, string>> headers_pair = new List<KeyValuePair<string, string>>()
             {
