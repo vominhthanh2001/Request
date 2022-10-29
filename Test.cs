@@ -13,6 +13,8 @@ namespace Request
             //Init 1
             HttpRequest request = new HttpRequest();
 
+            request.SetCookie("cookie", "/", ".facebook");
+
             List<KeyValuePair<string, string>> headers_pair = new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("accept","*/*"),

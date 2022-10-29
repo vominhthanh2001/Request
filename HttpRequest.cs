@@ -58,6 +58,35 @@ namespace Request
         private HttpClient _client { get; set; }
         private CookieContainer _cookieContainer { get; set; }
 
+        public void SetProxy(string ip, string port, string username = null, string password = null)
+        {
+            if (!string.IsNullOrEmpty(ip) && !string.IsNullOrEmpty(port) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+            {
+                var proxy = new WebProxy()
+                {
+                    Address = new Uri($"http://{ip}:{port}"),
+                    BypassProxyOnLocal = false,
+                    UseDefaultCredentials = false
+                };
+
+                _handler.Proxy = proxy;
+            }
+
+            if (!string.IsNullOrEmpty(ip) && !string.IsNullOrEmpty(port) && string.IsNullOrEmpty(username) && string.IsNullOrEmpty(password))
+            {
+                var proxy = new WebProxy()
+                {
+                    Address = new Uri($"http://{ip}:{port}"),
+                    BypassProxyOnLocal = false,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(username, password)
+                };
+
+                _handler.Proxy = proxy;
+            }
+        }
+
+
         public void SetHeader(Dictionary<string, string> headers)
         {
             foreach (var item in headers)
