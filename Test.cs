@@ -10,8 +10,28 @@ namespace Request
     {
         static void Main(string[] args)
         {
-            //using HttpRequest
+            //Init 1
             HttpRequest request = new HttpRequest();
+
+            List<KeyValuePair<string, string>> headers_pair = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("accept","*/*"),
+                new KeyValuePair<string, string>("accept-encoding","gzip, deflate, br"),
+                new KeyValuePair<string, string>("accept-language","vi,en-US;q=0.9,en;q=0.8"),
+            };
+
+            //Init 2
+            HttpRequest request_1 = new HttpRequest(headers_pair);
+
+            Dictionary<string, string> headers_dic = new Dictionary<string, string>()
+            {
+                { "accept", "*/*" },
+                { "accept-encoding", "gzip, deflate, br" },
+                { "accept-language", "vi,en-US;q=0.9,en;q=0.8" }
+            };
+
+            //Init 3
+            HttpRequest request_2 = new HttpRequest(headers_dic);
         }
 
         static void HeaderDemo_ListKeyValuePair()

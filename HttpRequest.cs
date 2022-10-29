@@ -74,6 +74,54 @@ namespace Request
             }
         }
 
+        public void SetCookie(string cookieInput, string path, string domain)
+        {
+            string[] cookieArgs = cookieInput.Split(';');
+
+            foreach (var cookie in cookieArgs)
+            {
+                string[] ckSplit = cookie.Split('=');
+
+                if (string.IsNullOrEmpty(cookie))
+                {
+                    continue;
+                }
+
+                if (ckSplit.Length != 2)
+                {
+                    continue;
+                }
+
+                try
+                {
+                    string name = ckSplit[0].Trim();
+                    string value = ckSplit[1].Trim();
+                    Cookie ck = new Cookie(name, value, path, domain);
+
+                    _cookieContainer.Add(ck);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        public void SetCookie(List<Cookie> cookies)
+        {
+            foreach (var cookie in cookies)
+            {
+                try
+                {
+                    _cookieContainer.Add(cookie);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
         public string GetCookie(string url)
         {
             if (string.IsNullOrEmpty(url))
